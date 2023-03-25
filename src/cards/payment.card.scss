@@ -1,12 +1,14 @@
 .payment-card{
     margin:  30px 50px;
-    height: 37vh;
+    height: 38vh;
     width: 70vh;
     background-image: url("https://ecm.capitalone.com/ProductBranding/cc/1/1007/bg_prim_2400x800.jpg");
     background-size: cover;
     border-radius: 7px;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
+    font-family: Optimist,Helvetica Neue,Helvetica,Arial,sans-serif;
 
     .card-title{
         display: flex;
@@ -15,7 +17,6 @@
         margin-top: 20px;
         font-weight: 400;
         color: white;
-        font-family: Optimist,Helvetica Neue,Helvetica,Arial,sans-serif;
 
         .card-type{
             font-size: 30px;
@@ -25,5 +26,41 @@
             margin-left: 5px;
             margin-top: 15px;
         }
+    }
+
+    .cur-balance-price{
+        display: flex;
+        flex-direction: row;
+        margin-left: 20px;
+        margin-top: 8px;
+        color: white;
+        font-weight: 200;
+        font-family: 'Comic Neue', cursive;
+
+        .superscript {
+            margin-top: 17px;
+            font-size: 40px;
+        }
+
+        .big-num {
+            font-size: 110px;
+        }
+    }
+
+    .white-line{
+        margin-top: 15px;
+        margin-left: 20px;
+        margin-right: 20px;
+        height: 1px;
+        width: 66.5vh;
+        background-color: white;
+    }
+
+    .cur-balance{
+        display: flex;
+        flex-direction: row;
+        margin-left: 20px;
+        color: white;
+        font-size: 20px;
     }
 }
