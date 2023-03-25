@@ -1,0 +1,58 @@
+.card-bar {
+  margin-left: 50px !important;
+  height: 50vh;
+  width: 70vh;
+  margin: 30px 50px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #000;
+  border-radius: 0.75rem;
+  flex: 1 1 auto;
+  // height: 350px;
+  justify-content: center;
+  margin: 0 7.5px 15px;
+  min-width: 30%;
+  overflow: hidden;
+  // width: 400px;
+  box-sizing: border-box;
+}
+
+.summary {
+  background-color: #27314c;
+  color: white;
+  box-sizing: border-box;
+  width: 100%; //or any percentage width you want
+  padding: 50px;
+
+  padding-left: 10px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  
+
+  .mon{
+    font-size: 1em;
+    font-weight: 400;
+    display: flex;
+  }
+
+}
+
+.sum-details{
+  font-size: 1.5em;
+    font-weight: 500;
+    display: flex;
+
+}
+
+.sum-details-2{
+  font-size: 1.3em;
+    font-weight: 300;
+    display: flex;
+
+}
