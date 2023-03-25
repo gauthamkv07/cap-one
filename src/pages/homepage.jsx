@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import './homepage.scss';
+import HeaderComponent from "../components/header.component";
 
 const HomePage = () => {
     return <div>
-        <div>"Whatever"</div>
+        <HeaderComponent/>
     </div>
 }
 
