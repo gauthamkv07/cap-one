@@ -1,12 +1,16 @@
 
 class CaptialOneAPIService {
     constructor() {
-        console.log('api key is', process.env.REACT_APP_CAPITALONE_API_API_KEY);
         this.request = require('superagent');
+        this.mongoRequest = require('superagent');
     }
 
     getURL(endpoint) {
         return `${process.env.REACT_APP_CAPITALONE_API_API_URL}${endpoint}?key=${process.env.REACT_APP_CAPITALONE_API_API_KEY}`;
+    }
+
+    getMongoURL(endpoint) {
+        return `${process.env.REACT_APP_CAPITALONE_BACKEND_URL}${endpoint}`;
     }
 
     async getAllCustomerIds(endpoint) {
@@ -87,7 +91,6 @@ class CaptialOneAPIService {
                     return res;
                 });
             let json = JSON.parse(response.text);
-            console.log(json[0]["purchase_date"])
             json.forEach(transaction => {
                 const [year, month, day] = transaction["purchase_date"].split("-");
                 let transDate = new Date(year, month - 1, day);
@@ -113,15 +116,52 @@ class CaptialOneAPIService {
             var startDate = new Date("2023-01-01");
             var endDate = new Date();
 
-            let result = json.filter((data) => {
+            let tempResult = json.filter((data) => {
                 return +new Date(data.purchase_date) >= startDate && +new Date(data.purchase_date) <= endDate;
-              })
-            console.log(result)
+            })
 
-            return [
-                { category: "Food", totalSpendings: 400 },
-                { category: "Groceries", totalSpendings: 300 }
-            ];
+            const mongoData = await this.getMongoData("https://cap-one-backend.herokuapp.com/api/merchants");
+            // console.log(mongoData)
+            let merchantAmountMap = {};
+
+            tempResult.forEach(trans => {
+                let merId = trans["merchant_id"]
+                let merCat = this.getMerchantCategory(mongoData, merId);
+                merchantAmountMap[merCat] = ((!merchantAmountMap[merCat]) ? 0 : merchantAmountMap[merCat]) + trans["amount"];
+            })
+
+            const output = [];
+            for (var key in merchantAmountMap) {
+                output.push({
+                    "category" : key,
+                    "totalSpendings" : merchantAmountMap[key]
+                })
+            }
+
+            return output;
+
+        } catch (error) {
+            console.error(`Error while making GET request to ${endpoint}:`, error);
+            throw error;
+        }
+    }
+
+
+    getMerchantCategory(mongoData, merId) {
+        const filteredData = mongoData.filter(item => item["merchant-id"] === merId);
+        return filteredData[0]["merchant-category"];
+    }
+
+    async getMongoData(endpoint) {
+        try {
+
+            const mongoResponse = await this.mongoRequest.get(endpoint)
+                .then((res) => {
+                    return res;
+                });
+            let json = JSON.parse(mongoResponse.text);
+            return json
+
 
         } catch (error) {
             console.error(`Error while making GET request to ${endpoint}:`, error);
