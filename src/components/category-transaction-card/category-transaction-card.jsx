@@ -59,7 +59,7 @@ const renderActiveShape = (props) => {
                 stroke={fill}
                 fill="none"
             />
-            <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+            <circle cx={ex} cy={ey} r={3} fill={fill} stroke="none" />
             <text
                 x={ex + (cos >= 0 ? 1 : -1) * 12}
                 y={ey}
@@ -112,15 +112,15 @@ const CategoryTransactionCard = () => {
                 <div className="categ-chart-card-title">{today.getFullYear()} </div>
                 <div className="categ-chart-card-sub-title">Categorized Transactions</div>
             </div>
-            <PieChart width={400} height={400}>
+            <PieChart width={600} height={600}>
                 <Pie
                     activeIndex={activeIndex}
                     activeShape={renderActiveShape}
                     data={!rtData?data:rtData}
-                    cx={200}
-                    cy={200}
-                    innerRadius={60}
-                    outerRadius={80}
+                    cx={280}
+                    cy={210}
+                    innerRadius={100}
+                    outerRadius={130}
                     fill="#8884d8"
                     dataKey="totalSpendings"
                     onMouseEnter={onPieEnter}
