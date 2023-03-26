@@ -1,6 +1,7 @@
 .credit-score-card {
-    height: 30vh;
-    width: 30vh;
+    height: 29vh;
+    width: 29vh;
+    margin-top: 20px;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
@@ -21,11 +22,13 @@
     .credit-alignment {
         display: flex;
         flex-direction: row;
+        align-items: center;
+        justify-content: center;
 
         .progress-bar-container {
             display: flex;
             flex-direction: row;
-            margin-left: 20px;
+            margin-top: 10px;
             height: 22vh;
             width: 22vh;
         }
