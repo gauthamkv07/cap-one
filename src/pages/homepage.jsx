@@ -6,13 +6,14 @@ import CreditScoreCard from "../components/credit-score-card/credit-score-card";
 import BarChartHistory from "../components/BarChartHistory/barcharthistory.component";
 import FutureExpenseCard from "../components/future-expense-card/future-expense-card";
 
+import CategoryTransactionCard from "../components/category-transaction-card/category-transaction-card";
 const HomePage = () => {
     return <div className="homepage">
         <HeaderComponent/>
         <PaymentCard/>
         <CreditScoreCard/>
         <BarChartHistory/>
-        <FutureExpenseCard/>
+        <CategoryTransactionCard/>
     </div>
 }
 
