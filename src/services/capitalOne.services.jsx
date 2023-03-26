@@ -23,9 +23,9 @@ class CaptialOneAPIService {
     }
 
     monthDiff(dateFrom, dateTo) {
-        return dateTo.getMonth() - dateFrom.getMonth() + 
-          (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
-       }
+        return dateTo.getMonth() - dateFrom.getMonth() +
+            (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
+    }
 
     async getLastFourMonthData(endpoint) {
         try {
@@ -49,11 +49,11 @@ class CaptialOneAPIService {
             var month4 = date4.toLocaleString('default', { month: 'long' });
 
             var indexMap = {};
-            indexMap[month]=0;
-            indexMap[month1]=1;
-            indexMap[month2]=2;
-            indexMap[month3]=3;
-            indexMap[month4]=4;
+            indexMap[month] = 0;
+            indexMap[month1] = 1;
+            indexMap[month2] = 2;
+            indexMap[month3] = 3;
+            indexMap[month4] = 4;
 
             const output = [
                 {
@@ -88,15 +88,41 @@ class CaptialOneAPIService {
                 });
             let json = JSON.parse(response.text);
             console.log(json[0]["purchase_date"])
-            json.forEach(transaction =>{
+            json.forEach(transaction => {
                 const [year, month, day] = transaction["purchase_date"].split("-");
-                let transDate = new Date(year, month-1, day);
+                let transDate = new Date(year, month - 1, day);
                 let transMonth = transDate.toLocaleString('default', { month: 'long' });
-                if(this.monthDiff(transDate, today)<4){
-                    output[indexMap[transMonth]]["debit"] +=  transaction["amount"]
+                if (this.monthDiff(transDate, today) < 4) {
+                    output[indexMap[transMonth]]["debit"] += transaction["amount"]
                 }
             })
             return output;
+        } catch (error) {
+            console.error(`Error while making GET request to ${endpoint}:`, error);
+            throw error;
+        }
+    }
+
+    async getSpendingsByCategory(endpoint) {
+        try {
+            const response = await this.request.get(this.getURL(endpoint))
+                .then((res) => {
+                    return res;
+                });
+            let json = JSON.parse(response.text);
+            var startDate = new Date("2023-01-01");
+            var endDate = new Date();
+
+            let result = json.filter((data) => {
+                return +new Date(data.purchase_date) >= startDate && +new Date(data.purchase_date) <= endDate;
+              })
+            console.log(result)
+
+            return [
+                { category: "Food", totalSpendings: 400 },
+                { category: "Groceries", totalSpendings: 300 }
+            ];
+
         } catch (error) {
             console.error(`Error while making GET request to ${endpoint}:`, error);
             throw error;
