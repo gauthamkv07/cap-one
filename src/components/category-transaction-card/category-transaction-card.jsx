@@ -1,14 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./category-transaction-card.scss";
-import { PieChart, Pie, Sector } from 'recharts';
+import { PieChart, Pie, Cell, Sector } from 'recharts';
+import CaptialOneAPIService from "../../services/capitalOne.services";
 
-const data = [
-    { category: "Food", totalSpendings: 400 },
-    { category: "Groceries", totalSpendings: 300 },
-    { category: "Entertainment", totalSpendings: 300 },
-    { category: "Education", totalSpendings: 1000 },
-    { category: "Others", totalSpendings: 200 }
-];
+
+const captialOneAPIService = new CaptialOneAPIService();
 
 const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
@@ -85,13 +81,29 @@ const renderActiveShape = (props) => {
 
 
 const CategoryTransactionCard = () => {
+    const data = [
+        { category: "Food", totalSpendings: 400 },
+        { category: "Groceries", totalSpendings: 300 },
+        { category: "Entertainment", totalSpendings: 300 },
+        { category: "Education", totalSpendings: 1000 },
+        { category: "Others", totalSpendings: 200 }
+    ];
     const [activeIndex, setActiveIndex] = useState(0);
+    const [rtData, setRtData] = useState(data);
     const onPieEnter = useCallback(
         (_, index) => {
             setActiveIndex(index);
         },
         [setActiveIndex]
     );
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await captialOneAPIService.getSpendingsByCategory('/accounts/641f5f1978f6910a15f0e098/purchases');
+            setRtData(response);
+        };
+        fetchData();
+    }, []);
 
     var today = new Date();
     return (
@@ -104,7 +116,7 @@ const CategoryTransactionCard = () => {
                 <Pie
                     activeIndex={activeIndex}
                     activeShape={renderActiveShape}
-                    data={data}
+                    data={!rtData?data:rtData}
                     cx={200}
                     cy={200}
                     innerRadius={60}

@@ -1,12 +1,16 @@
 
 class CaptialOneAPIService {
     constructor() {
-        console.log('api key is', process.env.REACT_APP_CAPITALONE_API_API_KEY);
         this.request = require('superagent');
+        this.mongoRequest = require('superagent');
     }
 
     getURL(endpoint) {
         return `${process.env.REACT_APP_CAPITALONE_API_API_URL}${endpoint}?key=${process.env.REACT_APP_CAPITALONE_API_API_KEY}`;
+    }
+
+    getMongoURL(endpoint) {
+        return `${process.env.REACT_APP_CAPITALONE_BACKEND_URL}${endpoint}`;
     }
 
     async getAllCustomerIds(endpoint) {
@@ -23,9 +27,9 @@ class CaptialOneAPIService {
     }
 
     monthDiff(dateFrom, dateTo) {
-        return dateTo.getMonth() - dateFrom.getMonth() + 
-          (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
-       }
+        return dateTo.getMonth() - dateFrom.getMonth() +
+            (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
+    }
 
     async getLastFourMonthData(endpoint) {
         try {
@@ -49,11 +53,11 @@ class CaptialOneAPIService {
             var month4 = date4.toLocaleString('default', { month: 'long' });
 
             var indexMap = {};
-            indexMap[month]=0;
-            indexMap[month1]=1;
-            indexMap[month2]=2;
-            indexMap[month3]=3;
-            indexMap[month4]=4;
+            indexMap[month] = 0;
+            indexMap[month1] = 1;
+            indexMap[month2] = 2;
+            indexMap[month3] = 3;
+            indexMap[month4] = 4;
 
             const output = [
                 {
@@ -87,16 +91,78 @@ class CaptialOneAPIService {
                     return res;
                 });
             let json = JSON.parse(response.text);
-            console.log(json[0]["purchase_date"])
-            json.forEach(transaction =>{
+            json.forEach(transaction => {
                 const [year, month, day] = transaction["purchase_date"].split("-");
-                let transDate = new Date(year, month-1, day);
+                let transDate = new Date(year, month - 1, day);
                 let transMonth = transDate.toLocaleString('default', { month: 'long' });
-                if(this.monthDiff(transDate, today)<4){
-                    output[indexMap[transMonth]]["debit"] +=  transaction["amount"]
+                if (this.monthDiff(transDate, today) < 4) {
+                    output[indexMap[transMonth]]["debit"] += transaction["amount"]
                 }
             })
             return output;
+        } catch (error) {
+            console.error(`Error while making GET request to ${endpoint}:`, error);
+            throw error;
+        }
+    }
+
+    async getSpendingsByCategory(endpoint) {
+        try {
+            const response = await this.request.get(this.getURL(endpoint))
+                .then((res) => {
+                    return res;
+                });
+            let json = JSON.parse(response.text);
+            var startDate = new Date("2023-01-01");
+            var endDate = new Date();
+
+            let tempResult = json.filter((data) => {
+                return +new Date(data.purchase_date) >= startDate && +new Date(data.purchase_date) <= endDate;
+            })
+
+            const mongoData = await this.getMongoData("https://cap-one-backend.herokuapp.com/api/merchants");
+            // console.log(mongoData)
+            let merchantAmountMap = {};
+
+            tempResult.forEach(trans => {
+                let merId = trans["merchant_id"]
+                let merCat = this.getMerchantCategory(mongoData, merId);
+                merchantAmountMap[merCat] = ((!merchantAmountMap[merCat]) ? 0 : merchantAmountMap[merCat]) + trans["amount"];
+            })
+
+            const output = [];
+            for (var key in merchantAmountMap) {
+                output.push({
+                    "category" : key,
+                    "totalSpendings" : merchantAmountMap[key]
+                })
+            }
+
+            return output;
+
+        } catch (error) {
+            console.error(`Error while making GET request to ${endpoint}:`, error);
+            throw error;
+        }
+    }
+
+
+    getMerchantCategory(mongoData, merId) {
+        const filteredData = mongoData.filter(item => item["merchant-id"] === merId);
+        return filteredData[0]["merchant-category"];
+    }
+
+    async getMongoData(endpoint) {
+        try {
+
+            const mongoResponse = await this.mongoRequest.get(endpoint)
+                .then((res) => {
+                    return res;
+                });
+            let json = JSON.parse(mongoResponse.text);
+            return json
+
+
         } catch (error) {
             console.error(`Error while making GET request to ${endpoint}:`, error);
             throw error;
