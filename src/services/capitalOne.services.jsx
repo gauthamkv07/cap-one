@@ -95,7 +95,7 @@ class CaptialOneAPIService {
                 const [year, month, day] = transaction["purchase_date"].split("-");
                 let transDate = new Date(year, month - 1, day);
                 let transMonth = transDate.toLocaleString('default', { month: 'long' });
-                if (this.monthDiff(transDate, today) < 4) {
+                if (this.monthDiff(transDate, today) < 5) {
                     output[indexMap[transMonth]]["debit"] += transaction["amount"]
                 }
             })
