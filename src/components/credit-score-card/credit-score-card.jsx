@@ -4,13 +4,13 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const CreditScoreCard = () => {
-    const score = 67;
+    const score = 558;
     return <div className="credit-score-card">
         <div className="credit-score-card-title">Credit Score</div>
         <div className="credit-alignment">
             <div className="progress-bar-container">
                 <CircularProgressbar
-                    value={score} text={`${score}%`}
+                    value={score/10} text={`${score}`}
                     circleRatio={0.7}
                     styles={{
                         trail: {
@@ -19,7 +19,7 @@ const CreditScoreCard = () => {
                             transformOrigin: "center center"
                         },
                         path: {
-                            stroke: `rgba(${score <= 33 ? 255 : 0} , ${score > 33 && score <= 66 ? 255 : 0} , ${score > 66 ? 255 : 0}, ${100 / 100})`,
+                            stroke: `rgba(${score <= 333 ? 255 : 0} , ${score > 333 && score <= 666 ? 255 : 0} , ${score > 666 ? 255 : 0}, ${100 / 100})`,
                             transform: "rotate(-126deg)",
                             transformOrigin: "center center"
                         }
