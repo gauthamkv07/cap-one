@@ -133,8 +133,8 @@ class CaptialOneAPIService {
             const output = [];
             for (var key in merchantAmountMap) {
                 output.push({
-                    "category" : key,
-                    "totalSpendings" : merchantAmountMap[key]
+                    "category": key,
+                    "totalSpendings": merchantAmountMap[key]
                 })
             }
 
@@ -167,6 +167,29 @@ class CaptialOneAPIService {
             console.error(`Error while making GET request to ${endpoint}:`, error);
             throw error;
         }
+    }
+
+    async getAllTrans() {
+        const response = await this.request.get(this.getURL('/accounts/641f5f1978f6910a15f0e098/purchases'))
+            .then((res) => {
+                return res;
+            });
+        let json = JSON.parse(response.text);
+        return json;
+    }
+
+    async getTotalOutFlow() {
+        const trans = await this.getAllTrans();
+        let op = 0;
+        let today = new Date();
+        trans.forEach(tran => {
+            const [year, month, day] = tran["purchase_date"].split("-");
+            let transDate = new Date(year, month - 1, day);
+            if (today.getFullYear() === transDate.getFullYear()) {
+                op += tran["amount"]
+            }
+        })
+        return op;
     }
 }
 
