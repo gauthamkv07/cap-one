@@ -4,7 +4,7 @@ import "./future-expense-card.scss";
 
 const cap = new CaptialOneAPIService();
 const FutureExpenseCard = () => {
-    const [data, setData] = useState(0);
+    const [data, setData] = useState(5384);
     // const [outFlow, setOutFlow] = useState(0);
 
     useEffect(() => {
