@@ -11,31 +11,28 @@ const BarChartHistory = () => {
         // Fetch credit and debit data from API or local data source
         const fetchData = async () => {
             const response = await captialOneAPIService.getLastFourMonthData('/accounts/641f5f1978f6910a15f0e098/purchases');
-            console.log('the response is', response);
-            const json = [
-                {
-                    month: 'feb',
-                    credit: 4000,
-                    debit: 2400
-                },
-                {
-                    month: 'mar',
-                    credit: 2500,
-                    debit: 1500
-                },
-                {
-                    month: 'apr',
-                    credit: 3000,
-                    debit: 500
-                },
-                {
-                    month: 'may',
-                    credit: 3800,
-                    debit: 123
-                }]
-            //   const json = await response.json();
-            // console.log("json data is", json)
-            setData(json);
+            // const json = [
+            //     {
+            //         month: 'feb',
+            //         credit: 4000,
+            //         debit: 2400
+            //     },
+            //     {
+            //         month: 'mar',
+            //         credit: 2500,
+            //         debit: 1500
+            //     },
+            //     {
+            //         month: 'apr',
+            //         credit: 3000,
+            //         debit: 500
+            //     },
+            //     {
+            //         month: 'may',
+            //         credit: 3800,
+            //         debit: 123
+            //     }]
+            setData(response);
         };
         fetchData();
     }, []);

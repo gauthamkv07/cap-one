@@ -22,6 +22,11 @@ class CaptialOneAPIService {
         }
     }
 
+    monthDiff(dateFrom, dateTo) {
+        return dateTo.getMonth() - dateFrom.getMonth() + 
+          (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
+       }
+
     async getLastFourMonthData(endpoint) {
         try {
             var date1 = new Date();
@@ -43,31 +48,38 @@ class CaptialOneAPIService {
             var month3 = date3.toLocaleString('default', { month: 'long' });
             var month4 = date4.toLocaleString('default', { month: 'long' });
 
+            var indexMap = {};
+            indexMap[month]=0;
+            indexMap[month1]=1;
+            indexMap[month2]=2;
+            indexMap[month3]=3;
+            indexMap[month4]=4;
+
             const output = [
                 {
                     month: month,
-                    credit: 4000,
-                    debit: 2400
+                    credit: 0,
+                    debit: 0
                 },
                 {
                     month: month1,
-                    credit: 2500,
-                    debit: 1500
+                    credit: 0,
+                    debit: 0
                 },
                 {
                     month: month2,
-                    credit: 3000,
-                    debit: 500
+                    credit: 0,
+                    debit: 0
                 },
                 {
                     month: month3,
-                    credit: 3800,
-                    debit: 123
+                    credit: 0,
+                    debit: 0
                 },
                 {
                     month: month4,
-                    credit: 3800,
-                    debit: 123
+                    credit: 0,
+                    debit: 0
                 }]
 
             const response = await this.request.get(this.getURL(endpoint))
@@ -75,7 +87,15 @@ class CaptialOneAPIService {
                     return res;
                 });
             let json = JSON.parse(response.text);
-            console.log(json)
+            console.log(json[0]["purchase_date"])
+            json.forEach(transaction =>{
+                const [year, month, day] = transaction["purchase_date"].split("-");
+                let transDate = new Date(year, month-1, day);
+                let transMonth = transDate.toLocaleString('default', { month: 'long' });
+                if(this.monthDiff(transDate, today)<4){
+                    output[indexMap[transMonth]]["debit"] +=  transaction["amount"]
+                }
+            })
             return output;
         } catch (error) {
             console.error(`Error while making GET request to ${endpoint}:`, error);
