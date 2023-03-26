@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import "./barcharthistory.component.scss";
+import CaptialOneAPIService from '../../services/capitalOne.services';
+
+const captialOneAPIService = new CaptialOneAPIService();
 const BarChartHistory = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         // Fetch credit and debit data from API or local data source
         const fetchData = async () => {
-            //   const response = await fetch('/api/credit-debit-data');
+            const response = await captialOneAPIService.getLastFourMonthData('/accounts/641f5f1978f6910a15f0e098/purchases');
+            console.log('the response is', response);
             const json = [
                 {
                     month: 'feb',
@@ -30,7 +34,7 @@ const BarChartHistory = () => {
                     debit: 123
                 }]
             //   const json = await response.json();
-            console.log("json data is", json)
+            // console.log("json data is", json)
             setData(json);
         };
         fetchData();
@@ -38,7 +42,6 @@ const BarChartHistory = () => {
 
     var today = new Date();
     var month = today.toLocaleString('default', { month: 'long' });
-    console.log(month);
 
     return (
         <div className="bar-chart-card">
