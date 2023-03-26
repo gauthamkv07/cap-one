@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import "./category-transaction-card.scss";
-import { PieChart, Pie, Cell, Sector } from 'recharts';
+import { PieChart, Pie, Sector } from 'recharts';
 
 const data = [
     { category: "Food", totalSpendings: 400 },
