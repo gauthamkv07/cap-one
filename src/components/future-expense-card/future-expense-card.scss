@@ -1,8 +1,38 @@
 .future-expense-card {
-    height: 30vh;
-    width: 47vh;
+    height: 40vh;
+    width: 50vh;
     border-radius: 7px;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
     box-sizing: border-box;
+    margin-left: 47px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .future-score-card-title {
+        display: flex;
+        flex-direction: row;
+        margin-left: 20px;
+        margin-top: 15px;
+        font-weight: 500;
+        font-size: 22px;
+    }
+
+    .flow {
+        font-size: 25px;
+        font-weight: 400;
+        display: flex;
+        margin-left: 20px;
+        flex-direction: row;
+
+        .in-flow{
+            color: green;
+        }
+
+        .out-flow {
+            color: red;
+        }
+    }
 }
