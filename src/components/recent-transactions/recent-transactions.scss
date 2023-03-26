@@ -1,15 +1,54 @@
 .recent-transc {
     margin-top: 30px;
-    height: 68.5vh;
     width: 75vh;
-    border-radius: 7px;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
     box-sizing: border-box;
 
-    .recent-transc-header{
+    .recent-transc-header {
         display: flex;
         flex-direction: row;
-        justify-content: start;
+        justify-content: flex-start;
+        border-bottom: 2px solid #DEE1E4;
+
+        .recent-transc-header-text {
+            margin: 12px 15px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+    }
+
+    .recent-transc-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #DEE1E4;
+
+        .rt-data {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 8px 15px;
+
+            .rt-month {
+                font-size: 20px;
+            }
+
+            .rt-day{
+                margin-left: 5px;
+                font-size: 25px;
+            }
+
+            .rt-receiver{
+                margin-left: 10px;
+                font-size: 20px;
+            }
+        }
+
+        .rt-price {
+            margin-right: 25px;
+            font-size: 20px;
+        }
     }
 }
