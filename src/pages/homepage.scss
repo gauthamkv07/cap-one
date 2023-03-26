@@ -1,9 +1,23 @@
 .homepage{
     background-color: #f4f4f4;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .home-body {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        width: 75%;
+
+        .home-left{
+            margin-left: 30px;
+        }
+
+        .home-right{
+            margin-right: 30px;
+        }
 
         .home-first-row{
             display: flex;

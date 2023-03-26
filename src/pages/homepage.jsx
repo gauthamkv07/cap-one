@@ -12,7 +12,7 @@ const HomePage = () => {
     return <div className="homepage">
         <HeaderComponent />
         <div className="home-body">
-            <div>
+            <div className="home-left">
                 <PaymentCard />
                 <div className="home-first-row">
                     <CreditScoreCard />
@@ -20,7 +20,7 @@ const HomePage = () => {
                 </div>
                 <BarChartHistory />
             </div>
-            <div className="">
+            <div className="home-right">
                 <RecentTransactions />
                 <CategoryTransactionCard />
             </div>

@@ -1,6 +1,7 @@
 .payment-card{
-    margin:  30px 50px;
-    height: 35vh;
+    margin-top:  30px;
+    margin-bottom: 30px;
+    height: 38.5vh;
     width: 66.5vh;
     background-image: url("https://ecm.capitalone.com/ProductBranding/cc/1/1007/bg_prim_2400x800.jpg");
     background-size: cover;
@@ -19,12 +20,12 @@
         color: white;
 
         .card-type{
-            font-size: 25px;
+            font-size: 20px;
         }
 
         .card-number{
             margin-left: 5px;
-            margin-top: 13px;
+            margin-top: 9px;
         }
     }
 
@@ -38,20 +39,21 @@
 
         .superscript {
             margin-top: 9px;
-            font-size: 35px;
+            font-size: 30px;
         }
 
         .big-num {
-            font-size: 70px;
+            font-size: 65px;
         }
     }
 
     .white-line{
         margin-top: 15px;
-        margin-left: 20px;
+        margin-left: 15px;
         margin-right: 20px;
+        margin-bottom: 5px;
         height: 1px;
-        width: 55.5vh;
+        width: 62vh;
         background-color: white;
         color: white;
     }
