@@ -1,58 +1,47 @@
-.card-bar {
-  margin-left: 50px !important;
-  height: 50vh;
-  width: 70vh;
+.credit-score-card {
   margin: 30px 50px;
-  padding-bottom: 15px;
+  height: 30vh;
+  width: 47vh;
+  border-radius: 7px;
   display: flex;
-  flex-wrap: wrap;
-  align-content: space-around;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid #000;
-  border-radius: 0.75rem;
-  flex: 1 1 auto;
-  // height: 350px;
-  justify-content: center;
-  margin: 0 7.5px 15px;
-  min-width: 30%;
-  overflow: hidden;
-  // width: 400px;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
   box-sizing: border-box;
-}
 
-.summary {
-  background-color: #27314c;
-  color: white;
-  box-sizing: border-box;
-  width: 100%; //or any percentage width you want
-  padding: 50px;
-
-  padding-left: 10px;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  
-
-  .mon{
-    font-size: 1em;
-    font-weight: 400;
+  .credit-score-card-title {
     display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 22px;
   }
 
-}
-
-.sum-details{
-  font-size: 1.5em;
-    font-weight: 500;
+  .credit-alignment {
     display: flex;
+    flex-direction: row;
 
-}
+    .progress-bar-container {
+      display: flex;
+      flex-direction: row;
+      margin-left: 20px;
+      height: 22vh;
+      width: 22vh;
+    }
 
-.sum-details-2{
-  font-size: 1.3em;
-    font-weight: 300;
-    display: flex;
-
+    .credit-score-text {
+      height: 90%;
+      width: 34vh;
+      display: flex;
+      margin-left: 20px;
+      margin-right: 20px;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
 }
