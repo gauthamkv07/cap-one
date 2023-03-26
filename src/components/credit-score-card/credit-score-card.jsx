@@ -26,9 +26,6 @@ const CreditScoreCard = () => {
                     }}
                 />
             </div>
-            <div className="credit-score-text">
-                If you are happy and you know clap your hands!!
-            </div>
         </div>
     </div>
 }

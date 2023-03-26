@@ -95,10 +95,10 @@ const CategoryTransactionCard = () => {
 
     var today = new Date();
     return (
-        <div className="bar-chart-card">
-            <div className="bar-chart-title-color">
-                <div className="bar-chart-card-title">{today.getFullYear()} </div>
-                <div className="bar-chart-card-sub-title">Categorized Transactions</div>
+        <div className="categ-chart-card">
+            <div className="categ-chart-title-color">
+                <div className="categ-chart-card-title">{today.getFullYear()} </div>
+                <div className="categ-chart-card-sub-title">Categorized Transactions</div>
             </div>
             <PieChart width={400} height={400}>
                 <Pie
@@ -114,7 +114,7 @@ const CategoryTransactionCard = () => {
                     onMouseEnter={onPieEnter}
                 />
             </PieChart>
-            {/* <div className="bar-chart-text">
+            {/* <div className="categ-chart-text">
                 Here is the last four months cash flow data
             </div> */}
         </div>)

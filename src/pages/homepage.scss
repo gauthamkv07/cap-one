@@ -1,3 +1,13 @@
 .homepage{
     background-color: #f4f4f4;
+
+    .home-body {
+        display: flex;
+        flex-direction: row;
+
+        .home-first-row{
+            display: flex;
+            flex-direction: row;
+        }
+    }
 }

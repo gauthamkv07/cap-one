@@ -1,0 +1,15 @@
+.recent-transc {
+    margin-top: 30px;
+    height: 68.5vh;
+    width: 75vh;
+    border-radius: 7px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+
+    .recent-transc-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+    }
+}

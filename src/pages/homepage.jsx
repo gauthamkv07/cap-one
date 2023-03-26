@@ -7,14 +7,24 @@ import BarChartHistory from "../components/BarChartHistory/barcharthistory.compo
 import FutureExpenseCard from "../components/future-expense-card/future-expense-card";
 
 import CategoryTransactionCard from "../components/category-transaction-card/category-transaction-card";
+import RecentTransactions from "../components/recent-transactions/recent-transactions";
 const HomePage = () => {
     return <div className="homepage">
-        <HeaderComponent/>
-        <PaymentCard/>
-        <CreditScoreCard/>
-        <BarChartHistory/>
-        <CategoryTransactionCard/>
-        <FutureExpenseCard/>
+        <HeaderComponent />
+        <div className="home-body">
+            <div>
+                <PaymentCard />
+                <div className="home-first-row">
+                    <CreditScoreCard />
+                    <FutureExpenseCard />
+                </div>
+                <BarChartHistory />
+            </div>
+            <div className="">
+                <RecentTransactions />
+                <CategoryTransactionCard />
+            </div>
+        </div>
     </div>
 }
 
