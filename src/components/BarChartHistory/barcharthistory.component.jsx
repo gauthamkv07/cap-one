@@ -41,11 +41,12 @@ const BarChartHistory = () => {
     console.log(month);
 
     return (
-        <div className="credit-score-card">
-        <div className="credit-score-card-title">{month.substring(0,3)+' '+today.getFullYear()} Cash Flow Summary</div>
-        <div className="credit-alignment">
-            <div className="progress-bar-container">
-            <BarChart width={300} height={300} data={data}>
+        <div className="bar-chart-card">
+            <div className="bar-chart-title-color">
+                <div className="bar-chart-card-title">{month.substring(0, 3) + ' ' + today.getFullYear()} </div>
+                <div className="bar-chart-card-sub-title">Cash Flow Summary</div>
+            </div>
+            <BarChart className="progress-bar-container" width={350} height={350} data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
@@ -54,11 +55,9 @@ const BarChartHistory = () => {
                 <Bar dataKey="credit" fill="#82ca9d" />
                 <Bar dataKey="debit" fill="#f28b82" />
             </BarChart>
-        </div><div className="credit-score-text">
-        Here is the last four months cash flow data
+            <div className="bar-chart-text">
+                Here is the last four months cash flow data
             </div>
-        </div>
-        
         </div>
     );
 };

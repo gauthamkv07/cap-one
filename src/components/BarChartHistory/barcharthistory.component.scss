@@ -1,7 +1,7 @@
-.credit-score-card {
+.bar-chart-card {
   margin: 30px 50px;
-  height: 30vh;
-  width: 47vh;
+  height: 60vh;
+  width: 60vh;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -10,38 +10,46 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
   box-sizing: border-box;
 
-  .credit-score-card-title {
-    display: flex;
-    flex-direction: row;
-    margin-left: 20px;
-    margin-top: 15px;
-    font-weight: 500;
-    font-size: 22px;
-  }
+  .bar-chart-title-color {
+    color: white;
+    margin: 0.5px;
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+    background: #27314c;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
 
-  .credit-alignment {
-    display: flex;
-    flex-direction: row;
-
-    .progress-bar-container {
+    .bar-chart-card-title {
       display: flex;
       flex-direction: row;
       margin-left: 20px;
-      height: 22vh;
-      width: 22vh;
+      margin-top: 15px;
+      font-weight: 500;
+      font-size: 22px;
     }
 
-    .credit-score-text {
-      height: 90%;
-      width: 34vh;
+    .bar-chart-card-sub-title {
       display: flex;
+      flex-direction: row;
+      margin-top: 5px;
       margin-left: 20px;
-      margin-right: 20px;
-      justify-content: center;
-      align-items: center;
-      text-align: left;
-      font-size: 20px;
+      margin-bottom: 5px;
       font-weight: 500;
+      font-size: 22px;
     }
+
   }
+
+  .progress-bar-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .bar-chart-text {
+    margin-left: 20px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
 }
