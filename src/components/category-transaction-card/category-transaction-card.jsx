@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./category-transaction-card.scss";
-import { PieChart, Pie, Cell, Sector } from 'recharts';
+import { PieChart, Pie, Sector } from 'recharts';
 import CaptialOneAPIService from "../../services/capitalOne.services";
 
 
