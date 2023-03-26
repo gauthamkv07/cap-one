@@ -14,6 +14,7 @@ const HomePage = () => {
         <CreditScoreCard/>
         <BarChartHistory/>
         <CategoryTransactionCard/>
+        <FutureExpenseCard/>
     </div>
 }
 
