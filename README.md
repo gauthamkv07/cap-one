@@ -1,9 +1,26 @@
-# Getting Started with Create React Apps
+**Live demo at http://www.capital1ne.tech/**
+### `Inspiration`
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Our inspiration was to build a full-stack web application that provides users with insights into their financial transactions and helps them make informed decisions.
 
-## Available Scripts
+### `What it does`
 
+Our application has a React.js frontend that communicates with a Node.js backend to access CapitalOne's free API and MongoDB database. Python is used to create mock data for purchase transactions in batches. The web application displays recent transactions, total balance, cash flow summary, credit score, and pie chart to display transaction based on purchase categories like food, clothing, entertainment, education, etc.
+
+### `How we built it`
+We built the application using React.js for the frontend, Node.js for the backend, and MongoDB as the database. Python was used to create mock data for purchase transactions. We also used CapitalOne's free API to access financial data.
+
+### `Challenges we ran into`
+One of the major challenges we faced was integrating the different components of the application and ensuring seamless communication between them. We also had to ensure that the application provided real-time data to users and was responsive to user input.
+
+### `Accomplishments that we're proud of`
+We are proud of building a fully functional application that provides valuable insights into a user's financial transactions. We were able to integrate multiple technologies and APIs to build an application that is responsive, intuitive, and useful for users.
+
+### `What we learned`
+We learned a lot about integrating different technologies and APIs to build a full-stack web application. We also gained a better understanding of financial data and how it can be used to provide valuable insights to users.
+
+### `What's next for cpa-one-insights`
+In the future, we plan to add more features to the application, such as predictive analytics and personalized financial advice. We also plan to make the application more user-friendly and accessible to a wider audience.
 In the project directory, you can run:
 
 ### `npm start`

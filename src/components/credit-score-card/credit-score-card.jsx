@@ -4,7 +4,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const CreditScoreCard = () => {
-    const score = 558;
+    const score = 699;
     return <div className="credit-score-card">
         <div className="credit-score-card-title">Credit Score</div>
         <div className="credit-alignment">
