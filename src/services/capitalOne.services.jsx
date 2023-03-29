@@ -218,6 +218,20 @@ class CaptialOneAPIService {
         }
         return op;
     }
+
+    async getThisMonthAmt(){
+        const trans = await this.getAllTrans();
+        let op = 0;
+        let today = new Date();
+        trans.forEach(tran => {
+            const [year, month, day] = tran["purchase_date"].split("-");
+            let transDate = new Date(year, month - 1, day);
+            if (today.getMonth() === transDate.getMonth()) {
+                op += tran["amount"]
+            }
+        })
+        return op;
+    }
 }
 
 export default CaptialOneAPIService;
