@@ -31,26 +31,20 @@ class CaptialOneAPIService {
             (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
     }
 
+    getMonthName(monthNumber) {
+        monthNumber = monthNumber < 0 ? (12+monthNumber) : monthNumber;
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return months[monthNumber];
+      }
+
     async getLastFourMonthData(endpoint) {
         try {
-            var date1 = new Date();
-            date1.setMonth(date1.getMonth() - 1);
-
-            var date2 = new Date();
-            date2.setMonth(date2.getMonth() - 2);
-
-            var date3 = new Date();
-            date3.setMonth(date3.getMonth() - 3);
-
-            var date4 = new Date();
-            date4.setMonth(date4.getMonth() - 4);
-
             var today = new Date();
-            var month = today.toLocaleString('default', { month: 'long' });
-            var month1 = date1.toLocaleString('default', { month: 'long' });
-            var month2 = date2.toLocaleString('default', { month: 'long' });
-            var month3 = date3.toLocaleString('default', { month: 'long' });
-            var month4 = date4.toLocaleString('default', { month: 'long' });
+            var month = this.getMonthName(today.getMonth());
+            var month1 = this.getMonthName(today.getMonth()-1);
+            var month2 = this.getMonthName(today.getMonth()-2);
+            var month3 = this.getMonthName(today.getMonth()-3);
+            var month4 = this.getMonthName(today.getMonth()-4);
 
             var indexMap = {};
             indexMap[month] = 0;

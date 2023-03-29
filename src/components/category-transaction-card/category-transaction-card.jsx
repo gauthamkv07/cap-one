@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./category-transaction-card.scss";
 import { PieChart, Pie, Sector, Cell } from 'recharts';
 import CaptialOneAPIService from "../../services/capitalOne.services";
+import RecentTransactions from "../recent-transactions/recent-transactions";
 
 
 const captialOneAPIService = new CaptialOneAPIService();
@@ -131,6 +132,7 @@ const CategoryTransactionCard = () => {
                 ))}
                 </Pie>
             </PieChart>
+            <RecentTransactions />
             {/* <div className="categ-chart-text">
                 Here is the last four months cash flow data
             </div> */}
