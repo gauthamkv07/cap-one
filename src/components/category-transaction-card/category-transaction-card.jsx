@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./category-transaction-card.scss";
-import { PieChart, Pie, Sector } from 'recharts';
+import { PieChart, Pie, Sector, Cell } from 'recharts';
 import CaptialOneAPIService from "../../services/capitalOne.services";
 
 
@@ -106,6 +106,7 @@ const CategoryTransactionCard = () => {
     }, []);
 
     var today = new Date();
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#ff5050', '#a3a0a0', '#974ffc'];
     return (
         <div className="categ-chart-card">
             <div className="categ-chart-title-color">
@@ -116,7 +117,7 @@ const CategoryTransactionCard = () => {
                 <Pie
                     activeIndex={activeIndex}
                     activeShape={renderActiveShape}
-                    data={!rtData?data:rtData}
+                    data={!rtData ? data : rtData}
                     cx={280}
                     cy={210}
                     innerRadius={100}
@@ -124,7 +125,11 @@ const CategoryTransactionCard = () => {
                     fill="#8884d8"
                     dataKey="totalSpendings"
                     onMouseEnter={onPieEnter}
-                />
+                >
+                {rtData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+                </Pie>
             </PieChart>
             {/* <div className="categ-chart-text">
                 Here is the last four months cash flow data

@@ -133,7 +133,7 @@ class CaptialOneAPIService {
             const output = [];
             for (var key in merchantAmountMap) {
                 output.push({
-                    "category": key,
+                    "category": key.toLowerCase().replace(/\b\w/g, s => s.toUpperCase()),
                     "totalSpendings": merchantAmountMap[key]
                 })
             }
