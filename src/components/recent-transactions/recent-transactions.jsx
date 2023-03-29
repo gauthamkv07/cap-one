@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CaptialOneAPIService from "../../services/capitalOne.services";
+import CsvDownloadButton from "../csv-download-button/csv-download-button.component";
 import "./recent-transactions.scss";
 
 const captialOneAPIService = new CaptialOneAPIService();
@@ -31,6 +32,7 @@ const RecentTransactions = () => {
     return <div className="recent-transc">
         <div className="recent-transc-header">
             <div className="recent-transc-header-text">Recent Transactions</div>
+            <CsvDownloadButton data={_data} />
         </div>
         {_data.map((data,index) => (
         <div className="recent-transc-row" key={index}>

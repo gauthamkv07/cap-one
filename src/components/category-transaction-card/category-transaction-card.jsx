@@ -113,6 +113,7 @@ const CategoryTransactionCard = () => {
                 <div className="categ-chart-card-title">{today.getFullYear()} </div>
                 <div className="categ-chart-card-sub-title">Categorized Transactions</div>
             </div>
+            <div>
             <PieChart width={600} height={600}>
                 <Pie
                     activeIndex={activeIndex}
@@ -131,6 +132,11 @@ const CategoryTransactionCard = () => {
                 ))}
                 </Pie>
             </PieChart>
+            </div>
+            <div>
+                <p>Recent Transactions for Food</p>
+            </div>
+            
             {/* <div className="categ-chart-text">
                 Here is the last four months cash flow data
             </div> */}
