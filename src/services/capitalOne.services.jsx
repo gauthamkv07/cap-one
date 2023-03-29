@@ -191,6 +191,33 @@ class CaptialOneAPIService {
         })
         return op;
     }
+
+    getMerchantName(mongoData, merId) {
+        const filteredData = mongoData.filter(item => item["merchant-id"] === merId);
+        return filteredData[0]["merchant-name"];
+    }
+
+    async getRecentTransactions() {
+        const trans = await this.getAllTrans();
+        const mongoData = await this.getMongoData("https://cap-one-backend.herokuapp.com/api/merchants");
+        const op = [];
+        trans.sort((tran1, tran2) => {
+            return new Date(tran2["purchase_date"]) - new Date(tran1["purchase_date"])
+        })
+        let iter = (trans.length < 5) ? trans.length : 10;
+        for (let i = 0; i < iter; i++) {
+            const [year, month, day] = trans[i]["purchase_date"].split("-");
+            let transDate = new Date(year, month - 1, day);
+            let transMonth = transDate.toLocaleString('default', { month: 'long' });
+            let d = {}
+            d["month"] = transMonth;
+            d["day"] = day;
+            d["receiver"] = this.getMerchantName(mongoData, trans[i]["merchant_id"]) ;
+            d["price"] = trans[i]["amount"];
+            op.push(d)
+        }
+        return op;
+    }
 }
 
 export default CaptialOneAPIService;
