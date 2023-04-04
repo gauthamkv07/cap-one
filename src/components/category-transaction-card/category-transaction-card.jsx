@@ -133,12 +133,8 @@ const CategoryTransactionCard = () => {
                 </Pie>
             </PieChart>
             </div>
-            <div>
+            {/* <div>
                 <p>Recent Transactions for Food</p>
-            </div>
-            
-            {/* <div className="categ-chart-text">
-                Here is the last four months cash flow data
             </div> */}
         </div>)
 }
