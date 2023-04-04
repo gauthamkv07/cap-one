@@ -32,19 +32,19 @@ class CaptialOneAPIService {
     }
 
     getMonthName(monthNumber) {
-        monthNumber = monthNumber < 0 ? (12+monthNumber) : monthNumber;
+        monthNumber = monthNumber < 0 ? (12 + monthNumber) : monthNumber;
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         return months[monthNumber];
-      }
+    }
 
     async getLastFourMonthData(endpoint) {
         try {
             var today = new Date();
             var month = this.getMonthName(today.getMonth());
-            var month1 = this.getMonthName(today.getMonth()-1);
-            var month2 = this.getMonthName(today.getMonth()-2);
-            var month3 = this.getMonthName(today.getMonth()-3);
-            var month4 = this.getMonthName(today.getMonth()-4);
+            var month1 = this.getMonthName(today.getMonth() - 1);
+            var month2 = this.getMonthName(today.getMonth() - 2);
+            var month3 = this.getMonthName(today.getMonth() - 3);
+            var month4 = this.getMonthName(today.getMonth() - 4);
 
             var indexMap = {};
             indexMap[month] = 0;
@@ -100,7 +100,23 @@ class CaptialOneAPIService {
         }
     }
 
-    async getSpendingsByCategory(endpoint) {
+    async checkCategoryPredictorActive(endpoint, description) {
+        const data = {};
+        data["description"] = description;
+        const url = `${process.env.REACT_APP_CATEGORY_PREDICTOR_URL}${endpoint}`;
+        const resp = this.request.post(url)
+            .send(data)
+            .set('Content-Type', 'application/json')
+            .then((res) => {
+                return res; // return the response object
+            })
+            .catch((err) => {
+                console.error('the err is', err);
+            });
+        return resp;
+    }
+
+    async populateMerchantAmountMap(endpoint) {
         try {
             const response = await this.request.get(this.getURL(endpoint))
                 .then((res) => {
@@ -114,30 +130,39 @@ class CaptialOneAPIService {
                 return +new Date(data.purchase_date) >= startDate && +new Date(data.purchase_date) <= endDate;
             })
 
-            const mongoData = await this.getMongoData("https://cap-one-backend.herokuapp.com/api/merchants");
+            // const mongoData = await this.getMongoData("https://cap-one-backend.herokuapp.com/api/merchants");
             // console.log(mongoData)
             let merchantAmountMap = {};
+            let promises = tempResult.map(async (trans) => {
+                let predictorResponse = await this.checkCategoryPredictorActive("/predict", trans["description"]);
+                let merCat = (predictorResponse.status === 200) ? predictorResponse.body.category : "others";
+                return { category: merCat, amount: trans["amount"] };
+            });
 
-            tempResult.forEach(trans => {
-                let merId = trans["merchant_id"]
-                let merCat = this.getMerchantCategory(mongoData, merId);
-                merchantAmountMap[merCat] = ((!merchantAmountMap[merCat]) ? 0 : merchantAmountMap[merCat]) + trans["amount"];
-            })
+            await Promise.all(promises).then((result) => {
+                result.forEach((item) => {
+                    merchantAmountMap[item.category] = ((!merchantAmountMap[item.category]) ? 0 : merchantAmountMap[item.category]) + item.amount;
+                });
+            });
 
-            const output = [];
-            for (var key in merchantAmountMap) {
-                output.push({
-                    "category": key.toLowerCase().replace(/\b\w/g, s => s.toUpperCase()),
-                    "totalSpendings": merchantAmountMap[key]
-                })
-            }
-
-            return output;
+            return merchantAmountMap;
 
         } catch (error) {
             console.error(`Error while making GET request to ${endpoint}:`, error);
             throw error;
         }
+    }
+
+    async getSpendingsByCategory(endpoint) {
+        const merchantAmountMap = await this.populateMerchantAmountMap(endpoint);
+        const output = [];
+        for (var key in merchantAmountMap) {
+            output.push({
+                "category": key.toLowerCase().replace(/\b\w/g, s => s.toUpperCase()),
+                "totalSpendings": merchantAmountMap[key]
+            })
+        }
+        return output;
     }
 
 
@@ -206,14 +231,14 @@ class CaptialOneAPIService {
             let d = {}
             d["month"] = transMonth;
             d["day"] = day;
-            d["receiver"] = this.getMerchantName(mongoData, trans[i]["merchant_id"]) ;
+            d["receiver"] = this.getMerchantName(mongoData, trans[i]["merchant_id"]);
             d["price"] = trans[i]["amount"];
             op.push(d)
         }
         return op;
     }
 
-    async getThisMonthAmt(){
+    async getThisMonthAmt() {
         const trans = await this.getAllTrans();
         let op = 0;
         let today = new Date();
